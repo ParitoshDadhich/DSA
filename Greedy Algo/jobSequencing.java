@@ -1,47 +1,46 @@
-// INITIAL APPROACH
-// ONE TEST CASE FAILING
-
-
-
 class Solution
 {
+ 
     int[] JobScheduling(Job arr[], int n)
     {
-        // sorting on the basis of deadline and followed by profit;
         Arrays.sort(arr, new Comparator<Job>(){
             public int compare(Job a, Job b){
-                if(b.deadline == a.deadline)
-                    return b.profit > a.profit ? 1 : (b.profit < a.profit ? -1 : 0);
+                if(b.profit > a.profit)
+                    return 1;
+                else if(b.profit < a.profit)
+                    return -1;
                 else
-                    return b.deadline > a.deadline ? 1 : -1;
-            }
+                    return 0;
+            } 
         });
         
+   
+        // 3 1 40
+        // 4 1 30
+        // 1 4 20
+        // 2 1 10
+         
+        // array for storing all profits
+        int ans[] = new int[n];
+        int job = 0;
+        int profit = 0;
         
-        // for(Job i: arr){
-        //     System.out.println(i.id + " " + i.deadline + " " + i.profit);
-        // }
-        
-        
-        int temp[] = new int[arr[0].deadline];
-        int ans[] = new int[2];
-        
-        int k = temp.length;
-        
-        for(int j=0, i=0; j<k && i<n; j++, i++){
-            
-            int deadline = arr[i].deadline;
-            int profit = arr[i].profit;
-            
-            ans[0]++;
-            ans[1] += profit;
-            
-            if(deadline == 1)
-                break;
+        for(int i=0; i<ans.length; i++){
+            for(int j= Math.min(n, arr[i].deadline); j>=1; j--){    // second loop for back traversing in the ans array;
+                if(ans[j-1] == 0){
+                    ans[j-1] = 1;
+                    profit += arr[i].profit;
+                    job++;
+                    break;
+                }
+            }
         }
         
+        ans = new int[2];
+        ans[0] = job;
+        ans[1] = profit;
+        
+        
         return ans;
-        
-        
     }
 }
