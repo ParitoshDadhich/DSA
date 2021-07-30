@@ -6,7 +6,7 @@ class Solution{
         int maxIndex = n-1;
         int minIndex = 0;
         
-        int me = arr[n-1] + 1;
+       int me = arr[n-1] + 1;
         
         for(int i=0; i<n; i++){
             if(i%2 == 0){
