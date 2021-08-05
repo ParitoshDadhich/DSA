@@ -22,9 +22,9 @@ class Solution
         }
         
         // swap(arr[high], swap[i+1])
-        swap(arr, high, i+1);
+        swap(arr, high, i+1);               // Here the significance of i, last number which is smaller to pivot
         
-        return i+1;
+        return i+1; 
     } 
     
     private static void swap(int arr[], int a, int b){
