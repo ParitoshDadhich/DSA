@@ -100,3 +100,77 @@ class Solution{
     }
     
 }
+
+
+// method 3
+// optimized memoized
+// here we check recursive sub calls also
+
+class Solution{
+    static int palindromicPartition(String str)
+    {
+        int n = str.length();
+        int t[][] = new int[n][n];
+        
+        for(int i=0; i<n; i++)
+            for(int j=0; j<n; j++)
+                t[i][j] = -1;
+        
+        return solve(str, 0, n-1, t);
+    }
+    
+    private static int solve(String str, int i, int j, int t[][]){
+        if(i>=j)
+            return 0;
+        if(isPalindrome(str, i, j))
+            return 0;
+            
+        if(t[i][j] != -1)
+            return t[i][j];
+         
+        int left = -1;
+        int right = -1;
+        int ans = Integer.MAX_VALUE;
+        for(int k=i; k<=j-1; k++){
+            // checking for solve(i, k)
+            if(t[i][k] != -1)
+                left = t[i][k];
+            else{
+                left = solve(str, i, k, t);
+                t[i][k] = left;
+            }
+            
+            // checking for solve(k+1, j)
+            if(t[k+1][j] != -1)
+                right = t[k+1][j];
+            else{
+                right = solve(str, k+1, j, t);
+                t[k+1][j] = right;
+            }
+            
+            // int tempAns = 1 + helper(str, i, k, t) + helper(str, k+1, j, t);
+            int tempAns = 1 + left + right;
+            if(ans > tempAns)
+                ans = tempAns;
+        }
+        
+        return t[i][j] = ans;
+    }
+    
+    
+    private static boolean isPalindrome(String s, int i, int j){
+        if(i == j)
+            return true;
+        
+        if(s.charAt(i) != s.charAt(j))
+            return false;
+            
+        if(i+1 < j)
+            return isPalindrome(s, i+1, j-1);
+        
+        return true;
+    }
+    
+}
+
+
