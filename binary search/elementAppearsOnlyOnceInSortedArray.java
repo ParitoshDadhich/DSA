@@ -1,4 +1,4 @@
-lass Sol
+class Solution
 {
     public static int search(int a[], int n)
     {
