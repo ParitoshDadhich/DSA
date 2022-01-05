@@ -46,6 +46,8 @@ public class KMP {
 //		 if n <=1, then no suffix and prefix would be equal;
 //		if(n <= 1) return 0;
 		
+		
+		// abcabcd
 		int lpsArray[] = new int[n];
 		lpsArray[0] = 0;
 		
