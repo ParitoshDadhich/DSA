@@ -20,7 +20,7 @@ class Solution {
 
 
 // method 2
-// iterative approach
+// iterative approach using 2 stacks
 // time o(n) && space o(n)
 
 
@@ -46,6 +46,42 @@ class Solution {
         List<Integer> list = new ArrayList<>();
         while(!s2.isEmpty())
             list.add(s2.pop().val);
+        
+        return list;
+    }
+}
+
+// method 3
+// iterative approach using 1 stack
+// time o(n) && space o(n)
+
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        Stack<TreeNode> st = new Stack<>();
+        List<Integer> list = new ArrayList<>();
+        
+        if(root == null)
+            return list;
+        
+        TreeNode curr = root;
+        while(curr != null || !st.isEmpty()){
+            if(curr != null){
+                st.push(curr);
+                curr = curr.left;
+            } else{
+                TreeNode temp = st.peek().right;
+                if(temp != null)
+                    curr = temp;
+                else{
+                    temp = st.pop();
+                    list.add(temp.val);
+                    while(!st.isEmpty() && temp == st.peek().right){
+                        temp = st.pop();
+                        list.add(temp.val);
+                    }
+                }
+            }
+        }
         
         return list;
     }
