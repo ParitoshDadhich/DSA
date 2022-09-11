@@ -21,3 +21,30 @@ class Solution {
         return list;
     }
 }
+
+
+// seconode way of writing code
+
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        Stack<TreeNode> st = new Stack<>();
+        List<Integer> list = new ArrayList<>();
+        
+        TreeNode node = root;
+        while(true){
+            if(node != null){
+                st.push(node);
+                node = node.left;
+            }else{
+                if(st.isEmpty()){
+                    break;
+                }
+                node = st.pop();
+                list.add(node);
+                node = node.right;
+            }
+        }
+        
+        return list;
+    }
+}
