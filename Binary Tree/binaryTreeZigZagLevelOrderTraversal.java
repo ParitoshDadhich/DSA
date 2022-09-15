@@ -1,3 +1,5 @@
+// m1
+
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         if(root == null) return new LinkedList<>();
@@ -33,6 +35,49 @@ class Solution {
                 list = new LinkedList<>();
                 level++;
             }
+            
+        }
+        
+        return ans;
+    }
+}
+
+
+// m2
+
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        boolean leftToRight = true;
+        
+        if(root == null)
+            return ans;
+        
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int len = queue.size();
+            Integer arr[] = new Integer[len];
+            // traversing a perticular level
+            for(int i=0; i<len; i++){
+                TreeNode node = queue.poll();
+                
+                // finding index to insert into the arr;
+                // if index -> i, then inserting from front
+                // if index -> size-1-i then inserting from back
+                int index = leftToRight ? i : (len - 1 - i);
+                 
+                if(node.left != null)
+                    queue.offer(node.left);
+                if(node.right != null)
+                    queue.offer(node.right);
+                
+                arr[index] = node.val;
+            }
+            
+            leftToRight = !leftToRight;
+            List<Integer> list = Arrays.asList(arr);
+            ans.add(list);
             
         }
         
