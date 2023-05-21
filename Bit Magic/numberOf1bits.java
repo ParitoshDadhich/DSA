@@ -53,9 +53,26 @@ class Solution {
     }
 }
 
-
-
 // method 4
+// time O(total number of set bits in n)
+
+
+class Solution {
+    static int setBits(int n) {
+        int res = 0;
+        while(n != 0){
+            // by this we are removing right most set bit
+            // 110 -> 100, after the operation
+             n = n - (n&(-n));
+                res++;
+        }
+        return res;
+    }
+}
+
+
+
+// method 5
 // using lookup table method for 32 bit numbers;
 // time o(1)
 
